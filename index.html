@@ -161,6 +161,8 @@
             return url;
         }
 
+        const fallbackImage = 'https://placehold.co/400x400/e2e8f0/64748b?text=Image+Not+Found';
+
         // Product data from the attached CSV file
         const newProductData = [
             {"Product name": "Fair and Lovely face cream 25gm", "Product category": "face cream", "product description": "Fair and Lovely face cream 25 gm", "MRP": "70", "selling price": "65", "image link": "https://m.media-amazon.com/images/I/51Ixxq9NkkL._SX522_.jpg"},
@@ -279,7 +281,7 @@
 
             const categoryCardsHtml = categories.map(category => `
                 <div class="category-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 overflow-hidden cursor-pointer" data-category="${category}">
-                    <img src="${getImageUrl(newProductData.find(p => p["Product category"] === category)?.["image link"] || '')}" alt="${category} Category" class="product-image rounded-t-xl">
+                    <img src="${getImageUrl(newProductData.find(p => p["Product category"] === category)?.["image link"] || '')}" alt="${category} Category" class="product-image rounded-t-xl" onerror="this.onerror=null;this.src='${fallbackImage}';">
                     <div class="p-6 text-center">
                         <h3 class="font-semibold text-lg text-gray-900 truncate">${category}</h3>
                     </div>
@@ -384,7 +386,7 @@
 
             return `
                 <div class="product-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 overflow-hidden cursor-pointer" data-product-id="${product.id}">
-                    <img src="${product.image}" alt="${product.name}" class="product-image rounded-t-xl">
+                    <img src="${product.image}" alt="${product.name}" class="product-image rounded-t-xl" onerror="this.onerror=null;this.src='${fallbackImage}';">
                     <div class="p-6 text-center">
                         <h3 class="font-semibold text-lg text-gray-900 truncate mb-1">${product.name}</h3>
                         <div class="flex items-center justify-center mb-4">
@@ -435,7 +437,7 @@
                 <section class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-12 mb-12">
                     <div class="flex flex-col lg:flex-row items-start lg:space-x-12">
                         <div class="lg:w-1/2 mb-6 lg:mb-0">
-                            <img src="${product.image}" alt="${product.name}" class="product-detail-image rounded-xl shadow-md">
+                            <img src="${product.image}" alt="${product.name}" class="product-detail-image rounded-xl shadow-md" onerror="this.onerror=null;this.src='${fallbackImage}';">
                         </div>
                         <div class="lg:w-1/2">
                             <h1 class="text-3xl font-bold text-gray-900 mb-2">${product.name}</h1>
@@ -500,7 +502,7 @@
                             ${cart.map(item => `
                                 <li class="flex items-center justify-between border-b pb-4 last:border-b-0 last:pb-0">
                                     <div class="flex flex-col sm:flex-row items-center sm:space-x-4">
-                                        <img src="${item.image}" alt="${item.name}" class="h-24 w-24 object-cover rounded-xl shadow-md mb-2 sm:mb-0">
+                                        <img src="${item.image}" alt="${item.name}" class="h-24 w-24 object-cover rounded-xl shadow-md mb-2 sm:mb-0" onerror="this.onerror=null;this.src='${fallbackImage}';">
                                         <div>
                                             <h4 class="font-semibold text-lg text-gray-900">${item.name}</h4>
                                             <p class="text-blue-600 font-bold">${formatPrice(item.price)}</p>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Threads - E-Commerce</title>
+    <title>Arvind General Store - E-Commerce</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -45,7 +45,7 @@
     <!-- Header -->
     <header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-            <a href="#" id="home-link" class="text-2xl font-bold text-blue-600 hover:text-blue-800 transition-colors">Quantum Threads</a>
+            <a href="#" id="home-link" class="text-2xl font-bold text-blue-600 hover:text-blue-800 transition-colors">Arvind General Store</a>
             <div class="flex items-center space-x-6">
                 <a href="#" id="home-nav-link" class="text-gray-600 hover:text-blue-600 transition-colors">Home</a>
                 <a href="#" id="products-nav-link" class="text-gray-600 hover:text-blue-600 transition-colors">Products</a>
@@ -80,19 +80,22 @@
         // Global state and data
         let state = {
             currentView: 'home',
-            selectedProductId: null
+            selectedProductId: null,
+            selectedCategory: 'all'
         };
         
         let cart = [];
         const products = [
-            { id: 1, name: 'Kinetic Pullover Hoodie', price: 59.99, category: 'Apparel', image: 'https://placehold.co/600x400/878787/fff?text=Hoodie', description: 'A lightweight and breathable pullover hoodie, perfect for any active lifestyle. Made with a unique blend of cotton and recycled polyester for ultimate comfort and durability.' },
-            { id: 2, name: 'Aether Trail Shorts', price: 44.99, category: 'Apparel', image: 'https://placehold.co/600x400/626262/fff?text=Shorts', description: 'Durable, water-resistant shorts designed for hiking and outdoor adventures. Features multiple secure pockets and an adjustable waistband for a perfect fit.' },
-            { id: 3, name: 'Cosmic Knit Beanie', price: 24.99, category: 'Accessories', image: 'https://placehold.co/600x400/353535/fff?text=Beanie', description: 'Stay warm in style with this soft, acrylic beanie. Its versatile design and comfortable fit make it a must-have accessory for colder days.' },
-            { id: 4, name: 'Gravity Tee', price: 29.99, category: 'Apparel', image: 'https://placehold.co/600x400/969696/fff?text=T-Shirt', description: 'A classic, soft-spun cotton T-shirt with a minimalist design. Available in multiple colors to match any outfit. Pre-shrunk for a lasting fit.' },
-            { id: 5, name: 'Fusion Commuter Backpack', price: 79.99, category: 'Accessories', image: 'https://placehold.co/600x400/535353/fff?text=Backpack', description: 'This backpack is your perfect companion for daily commutes. Padded laptop sleeve, ergonomic design, and a water-resistant exterior make it ideal for city life.' },
-            { id: 6, name: 'Nova Running Shoes', price: 99.99, category: 'Footwear', image: 'https://placehold.co/600x400/a8a8a8/fff?text=Shoes', description: 'Experience lightweight performance and superior cushioning with these running shoes. The mesh upper provides breathability, while the responsive sole delivers a smooth ride.' },
-            { id: 7, name: 'Nebula Sunglasses', price: 69.99, category: 'Accessories', image: 'https://placehold.co/600x400/4c4c4c/fff?text=Sunglasses', description: 'Polarized lenses and a durable frame make these sunglasses perfect for bright, sunny days. Offers 100% UV protection and a comfortable, secure fit.' },
-            { id: 8, name: 'Vortex Water Bottle', price: 19.99, category: 'Accessories', image: 'https://placehold.co/600x400/292929/fff?text=Bottle', description: 'Stay hydrated with this insulated stainless steel water bottle. Keeps drinks cold for up to 24 hours and hot for 12 hours. Leak-proof and easy to clean.' },
+            { id: 1, name: 'Hydrating Face Wash', price: 12.99, category: 'Face', image: 'https://placehold.co/600x400/969696/fff?text=Face+Wash', description: 'A gentle, hydrating cleanser that removes impurities without stripping your skin of its natural moisture. Infused with hyaluronic acid and green tea extract.' },
+            { id: 2, name: 'Daily Moisturizer', price: 19.99, category: 'Face', image: 'https://placehold.co/600x400/535353/fff?text=Moisturizer', description: 'A lightweight daily moisturizer that provides all-day hydration and protection. Perfect for all skin types, leaving your face feeling soft and refreshed.' },
+            { id: 3, name: 'Radiant Lip Balm', price: 8.99, category: 'lips', image: 'https://placehold.co/600x400/a8a8a8/fff?text=Lip+Balm', description: 'A nourishing and moisturizing lip balm with a hint of natural shine. Formulated with shea butter and vitamin E to soothe dry, chapped lips.' },
+            { id: 4, name: 'Velvet Matte Lipstick', price: 15.99, category: 'lips', image: 'https://placehold.co/600x400/4c4c4c/fff?text=Lipstick', description: 'Experience rich, velvety color with this long-lasting matte lipstick. Its creamy formula glides on smoothly, providing a bold look without drying your lips.' },
+            { id: 5, name: 'Strengthening Shampoo', price: 14.99, category: 'hair', image: 'https://placehold.co/600x400/e2e8f0/888?text=Shampoo', description: 'A fortifying shampoo designed to strengthen hair from root to tip. Enriched with biotin and argan oil to reduce breakage and promote healthy growth.' },
+            { id: 6, name: 'Nourishing Hair Conditioner', price: 14.99, category: 'hair', image: 'https://placehold.co/600x400/353535/fff?text=Conditioner', description: 'Deeply nourish and detangle your hair with this luxurious conditioner. Leaves hair soft, shiny, and easy to manage with a beautiful scent.' },
+            { id: 7, name: 'Clarifying Face Mask', price: 22.99, category: 'Face', image: 'https://placehold.co/600x400/626262/fff?text=Face+Mask', description: 'A deep-cleansing face mask that clarifies pores and absorbs excess oil. Formulated with charcoal and clay for a revitalized, smooth complexion.' },
+            { id: 8, name: 'Hydrating Lip Gloss', price: 10.99, category: 'lips', image: 'https://placehold.co/600x400/292929/fff?text=Lip+Gloss', description: 'Achieve a high-shine, plump look with this non-sticky lip gloss. Infused with hydrating oils to keep your lips moisturized and comfortable all day.' },
+            { id: 9, name: 'Silky Body Lotion', price: 17.99, category: 'body', image: 'https://placehold.co/600x400/9e9e9e/fff?text=Body+Lotion', description: 'A fast-absorbing body lotion that leaves skin feeling soft, smooth, and deeply hydrated. Enriched with shea butter and jojoba oil.' },
+            { id: 10, name: 'Exfoliating Body Scrub', price: 16.99, category: 'body', image: 'https://placehold.co/600x400/b1b1b1/fff?text=Body+Scrub', description: 'Gently buff away dead skin cells to reveal smoother, more radiant skin. Made with natural exfoliants and essential oils for a spa-like experience.' },
         ];
         
         // DOM Elements
@@ -108,7 +111,7 @@
 
         // Utility functions
         function formatPrice(price) {
-            return `$${price.toFixed(2)}`;
+            return `₹${price.toFixed(2)}`;
         }
 
         function showMessage(title, content) {
@@ -125,7 +128,7 @@
 
         // View rendering functions
         function renderView() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Fix for scroll issue: Removed window.scrollTo({ top: 0, behavior: 'smooth' });
             appContainer.innerHTML = ''; // Clear container
             if (state.currentView === 'home') {
                 renderHomePage();
@@ -135,6 +138,8 @@
                 renderProductPage(state.selectedProductId);
             } else if (state.currentView === 'cart') {
                 renderCartPage();
+            } else if (state.currentView === 'checkout') {
+                renderCheckoutPage();
             }
             updateCartCount();
         }
@@ -152,11 +157,42 @@
                     <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0 md:space-x-12">
                         <div class="md:w-1/2 text-center md:text-left">
                             <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Discover Your Style</h1>
-                            <p class="text-gray-600 text-lg mb-6">Explore our curated collection of high-quality apparel and accessories that blend comfort with modern design. Quantum Threads - where fashion meets the future.</p>
+                            <p class="text-gray-600 text-lg mb-6">Explore our curated collection of high-quality beauty products that blend science with modern design. Arvind General Store - where beauty meets the future.</p>
                             <button id="shop-now-button" class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-full shadow-lg hover:bg-blue-700 transition-colors transform hover:scale-105">Shop Now</button>
                         </div>
                         <div class="md:w-1/2">
                             <img src="https://placehold.co/600x400/e2e8f0/888?text=Hero+Image" alt="Hero Image" class="w-full rounded-2xl shadow-md">
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Category Section -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-center mb-8">Shop by Category</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="category-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 overflow-hidden cursor-pointer" data-category="Face">
+                            <img src="https://placehold.co/600x400/969696/fff?text=Face+Care" alt="Face Category" class="product-image rounded-t-xl">
+                            <div class="p-6 text-center">
+                                <h3 class="font-semibold text-lg text-gray-900 truncate">Face</h3>
+                            </div>
+                        </div>
+                        <div class="category-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 overflow-hidden cursor-pointer" data-category="lips">
+                            <img src="https://placehold.co/600x400/535353/fff?text=Lip+Care" alt="Lips Category" class="product-image rounded-t-xl">
+                            <div class="p-6 text-center">
+                                <h3 class="font-semibold text-lg text-gray-900 truncate">Lips</h3>
+                            </div>
+                        </div>
+                        <div class="category-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 overflow-hidden cursor-pointer" data-category="hair">
+                            <img src="https://placehold.co/600x400/a8a8a8/fff?text=Hair+Care" alt="Hair Category" class="product-image rounded-t-xl">
+                            <div class="p-6 text-center">
+                                <h3 class="font-semibold text-lg text-gray-900 truncate">Hair</h3>
+                            </div>
+                        </div>
+                        <div class="category-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 overflow-hidden cursor-pointer" data-category="body">
+                            <img src="https://placehold.co/600x400/c7c7c7/fff?text=Body+Care" alt="Body Category" class="product-image rounded-t-xl">
+                            <div class="p-6 text-center">
+                                <h3 class="font-semibold text-lg text-gray-900 truncate">Body</h3>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -165,30 +201,15 @@
                 <section class="mb-12">
                     <h2 class="text-3xl font-bold text-center mb-8">Featured Products</h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        ${featuredProducts.map(p => `
-                            <div class="product-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 overflow-hidden cursor-pointer" data-product-id="${p.id}">
-                                <img src="${p.image}" alt="${p.name}" class="product-image rounded-t-xl">
-                                <div class="p-6 text-center">
-                                    <h3 class="font-semibold text-lg text-gray-900 truncate mb-1">${p.name}</h3>
-                                    <p class="text-blue-600 font-bold text-xl">${formatPrice(p.price)}</p>
-                                </div>
-                            </div>
-                        `).join('')}
+                        ${featuredProducts.map(renderProductCard).join('')}
                     </div>
                 </section>
             `;
 
             document.getElementById('shop-now-button').addEventListener('click', () => {
                 state.currentView = 'products';
+                state.selectedCategory = 'all';
                 renderView();
-            });
-            document.querySelectorAll('.product-card').forEach(card => {
-                card.addEventListener('click', (e) => {
-                    const id = parseInt(e.currentTarget.dataset.productId);
-                    state.currentView = 'product';
-                    state.selectedProductId = id;
-                    renderView();
-                });
             });
         }
 
@@ -198,9 +219,10 @@
                     <h2 class="text-3xl font-bold text-center mb-8">All Products</h2>
                     <div id="category-filter" class="flex flex-wrap justify-center space-x-2 md:space-x-4 mb-8">
                         <button class="filter-btn px-4 py-2 mb-2 rounded-full border border-gray-300 text-gray-700 hover:bg-blue-100 transition-colors" data-category="all">All</button>
-                        <button class="filter-btn px-4 py-2 mb-2 rounded-full border border-gray-300 text-gray-700 hover:bg-blue-100 transition-colors" data-category="Apparel">Apparel</button>
-                        <button class="filter-btn px-4 py-2 mb-2 rounded-full border border-gray-300 text-gray-700 hover:bg-blue-100 transition-colors" data-category="Accessories">Accessories</button>
-                        <button class="filter-btn px-4 py-2 mb-2 rounded-full border border-gray-300 text-gray-700 hover:bg-blue-100 transition-colors" data-category="Footwear">Footwear</button>
+                        <button class="filter-btn px-4 py-2 mb-2 rounded-full border border-gray-300 text-gray-700 hover:bg-blue-100 transition-colors" data-category="Face">Face</button>
+                        <button class="filter-btn px-4 py-2 mb-2 rounded-full border border-gray-300 text-gray-700 hover:bg-blue-100 transition-colors" data-category="lips">lips</button>
+                        <button class="filter-btn px-4 py-2 mb-2 rounded-full border border-gray-300 text-gray-700 hover:bg-blue-100 transition-colors" data-category="hair">hair</button>
+                        <button class="filter-btn px-4 py-2 mb-2 rounded-full border border-gray-300 text-gray-700 hover:bg-blue-100 transition-colors" data-category="body">body</button>
                     </div>
                     <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                         <!-- Products will be dynamically added here -->
@@ -208,45 +230,60 @@
                 </section>
             `;
             
-            const productListContainer = document.getElementById('product-list');
             const filterButtons = document.querySelectorAll('.filter-btn');
 
             filterButtons.forEach(button => {
                 button.addEventListener('click', (e) => {
                     const category = e.target.dataset.category;
+                    state.selectedCategory = category;
                     renderProductCards(category);
                     filterButtons.forEach(btn => btn.classList.remove('bg-blue-600', 'text-white'));
                     e.target.classList.add('bg-blue-600', 'text-white');
                 });
             });
 
-            // Initial render
-            renderProductCards('all');
-            document.querySelector('.filter-btn[data-category="all"]').classList.add('bg-blue-600', 'text-white');
+            // Initial render based on state
+            renderProductCards(state.selectedCategory);
+            document.querySelector(`.filter-btn[data-category="${state.selectedCategory}"]`).classList.add('bg-blue-600', 'text-white');
         }
 
         function renderProductCards(category) {
             const productListContainer = document.getElementById('product-list');
             const filteredProducts = category === 'all' ? products : products.filter(p => p.category === category);
             
-            productListContainer.innerHTML = filteredProducts.map(p => `
-                <div class="product-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 overflow-hidden cursor-pointer" data-product-id="${p.id}">
-                    <img src="${p.image}" alt="${p.name}" class="product-image rounded-t-xl">
+            productListContainer.innerHTML = filteredProducts.map(renderProductCard).join('');
+        }
+
+        function renderProductCard(product) {
+            const inCart = cart.find(item => item.id === product.id);
+            const buttonHtml = inCart ? renderQuantityControls(inCart.quantity, product.id) : `
+                <button data-product-id="${product.id}" class="add-to-cart-btn w-full px-6 py-3 bg-blue-600 text-white rounded-xl shadow-lg hover:bg-blue-700 transition-colors">Add to Cart</button>
+            `;
+
+            return `
+                <div class="product-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 overflow-hidden cursor-pointer" data-product-id="${product.id}">
+                    <img src="${product.image}" alt="${product.name}" class="product-image rounded-t-xl">
                     <div class="p-6 text-center">
-                        <h3 class="font-semibold text-lg text-gray-900 truncate mb-1">${p.name}</h3>
-                        <p class="text-blue-600 font-bold text-xl">${formatPrice(p.price)}</p>
+                        <h3 class="font-semibold text-lg text-gray-900 truncate mb-1">${product.name}</h3>
+                        <p class="text-blue-600 font-bold text-xl mb-4">${formatPrice(product.price)}</p>
+                        ${buttonHtml}
                     </div>
                 </div>
-            `).join('');
-
-            document.querySelectorAll('.product-card').forEach(card => {
-                card.addEventListener('click', (e) => {
-                    const id = parseInt(e.currentTarget.dataset.productId);
-                    state.currentView = 'product';
-                    state.selectedProductId = id;
-                    renderView();
-                });
-            });
+            `;
+        }
+        
+        function renderQuantityControls(quantity, productId) {
+            return `
+                <div class="flex items-center justify-center space-x-2 mt-4">
+                    <button class="quantity-btn p-1 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200" data-product-id="${productId}" data-action="decrement">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" /></svg>
+                    </button>
+                    <span class="w-8 text-center font-semibold text-lg">${quantity}</span>
+                    <button class="quantity-btn p-1 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200" data-product-id="${productId}" data-action="increment">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                    </button>
+                </div>
+            `;
         }
 
         function renderProductPage(productId) {
@@ -295,6 +332,7 @@
                 `;
                 document.getElementById('continue-shopping-btn').addEventListener('click', () => {
                     state.currentView = 'products';
+                    state.selectedCategory = 'all';
                     renderView();
                 });
                 return;
@@ -339,31 +377,52 @@
                             <span>Total:</span>
                             <span class="text-blue-600">${formatPrice(cartTotal)}</span>
                         </div>
-                        <button id="checkout-btn" class="mt-6 w-full px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-xl shadow-lg hover:bg-blue-700 transition-colors">
-                            Proceed to Checkout
+                        <button id="add-address-btn" class="mt-6 w-full px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-xl shadow-lg hover:bg-blue-700 transition-colors">
+                            Add Address
                         </button>
                     </div>
                 </div>
             `;
+            // Quantity and remove buttons on the cart page are handled by a different listener
+        }
+        
+        function renderCheckoutPage() {
+            const cartTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            appContainer.innerHTML = `
+                <div class="max-w-xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-8">
+                    <h2 class="text-3xl font-bold text-center mb-8">Checkout</h2>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold mb-4">Order Summary</h3>
+                        <ul class="space-y-3 border-b border-gray-200 pb-4 mb-4 no-scrollbar max-h-48 overflow-y-auto">
+                            ${cart.map(item => `
+                                <li class="flex items-center justify-between text-gray-600">
+                                    <span class="truncate pr-2">${item.name} (x${item.quantity})</span>
+                                    <span class="font-medium text-gray-800">${formatPrice(item.price * item.quantity)}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                        <div class="flex justify-between items-center font-bold text-gray-900 text-lg">
+                            <span>Total:</span>
+                            <span class="text-blue-600">${formatPrice(cartTotal)}</span>
+                        </div>
+                    </div>
 
-            document.querySelectorAll('.quantity-btn').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const id = parseInt(e.currentTarget.dataset.productId);
-                    const action = e.currentTarget.dataset.action;
-                    updateCartQuantity(id, action);
-                });
-            });
-
-            document.querySelectorAll('.remove-btn').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const id = parseInt(e.currentTarget.dataset.productId);
-                    removeFromCart(id);
-                });
-            });
-            
-            document.getElementById('checkout-btn').addEventListener('click', () => {
-                showMessage('Checkout', 'This is a demo. Checkout functionality is not implemented.');
-            });
+                    <form id="checkout-form" class="space-y-4">
+                        <div>
+                            <label for="phone-number" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                            <input type="tel" id="phone-number" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors" placeholder="e.g., 9876543210" required pattern="[0-9]{10}" maxlength="10">
+                        </div>
+                        <div>
+                            <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Shipping Address</label>
+                            <textarea id="address" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none transition-colors" placeholder="Enter your full address" required></textarea>
+                        </div>
+                        <button type="submit" id="place-order-btn" class="w-full px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-xl shadow-lg hover:bg-blue-700 transition-colors">
+                            Place Order
+                        </button>
+                    </form>
+                </div>
+            `;
         }
 
         // Cart functions
@@ -376,8 +435,9 @@
             } else {
                 cart.push({ ...product, quantity: 1 });
             }
+            // Re-render the current view to update the button display
+            renderView();
             updateCartCount();
-            showMessage('Item Added', `${product.name} has been added to your cart.`);
         }
 
         function updateCartQuantity(productId, action) {
@@ -411,6 +471,7 @@
         productsNavLink.addEventListener('click', (e) => {
             e.preventDefault();
             state.currentView = 'products';
+            state.selectedCategory = 'all'; // Reset category when navigating via the main link
             renderView();
         });
 
@@ -420,6 +481,86 @@
         });
 
         closeMessageBox.addEventListener('click', closeMessage);
+        
+        // Centralized delegated click listener for product cards and add-to-cart buttons
+        appContainer.addEventListener('click', (e) => {
+            const addToCartBtn = e.target.closest('.add-to-cart-btn');
+            const productCard = e.target.closest('.product-card');
+            const categoryCard = e.target.closest('.category-card');
+            const quantityBtn = e.target.closest('.quantity-btn');
+            const removeBtn = e.target.closest('.remove-btn');
+            const addAddressBtn = e.target.closest('#add-address-btn');
+
+            if (addToCartBtn) {
+                e.stopPropagation();
+                const id = parseInt(addToCartBtn.dataset.productId);
+                addToCart(id);
+            } else if (quantityBtn) {
+                 e.stopPropagation();
+                const id = parseInt(quantityBtn.dataset.productId);
+                const action = quantityBtn.dataset.action;
+                updateCartQuantity(id, action);
+            } else if (removeBtn) {
+                e.stopPropagation();
+                const id = parseInt(removeBtn.dataset.productId);
+                removeFromCart(id);
+            } else if (productCard) {
+                const id = parseInt(productCard.dataset.productId);
+                state.currentView = 'product';
+                state.selectedProductId = id;
+                renderView();
+            } else if (categoryCard) {
+                const category = categoryCard.dataset.category;
+                state.currentView = 'products';
+                state.selectedCategory = category;
+                renderView();
+            } else if (addAddressBtn) {
+                state.currentView = 'checkout';
+                renderView();
+            }
+        });
+
+        // Listener for the new checkout form
+        appContainer.addEventListener('submit', (e) => {
+            if (e.target.id === 'checkout-form') {
+                e.preventDefault();
+                const phoneNumber = document.getElementById('phone-number').value;
+                const address = document.getElementById('address').value;
+                
+                const phoneRegex = /^\d{10}$/;
+
+                if (!phoneNumber || !address) {
+                    showMessage('Missing Information', 'Please provide both your phone number and shipping address to proceed.');
+                    return;
+                }
+
+                if (!phoneRegex.test(phoneNumber)) {
+                    showMessage('Invalid Phone Number', 'Please enter a valid 10-digit phone number without any characters or spaces.');
+                    return;
+                }
+
+                const cartSummary = cart.map(item => `${item.name} (x${item.quantity}) - ${formatPrice(item.price * item.quantity)}`).join('\n');
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                
+                const message = encodeURIComponent(
+                    `New Order from Arvind General Store\n\n` +
+                    `Order Details:\n${cartSummary}\n\n` +
+                    `Total: ${formatPrice(total)}\n\n` +
+                    `Customer Information:\n` +
+                    `Phone Number: ${phoneNumber}\n` +
+                    `Shipping Address: ${address}`
+                );
+                
+                const whatsappUrl = `https://wa.me/7505756355?text=${message}`;
+                window.open(whatsappUrl, '_blank');
+
+                // Clear the cart after placing the order
+                cart = [];
+                updateCartCount();
+                showMessage('Order Placed!', 'Your order details have been sent to Arvind General Store. They will contact you shortly to confirm your order.');
+                state.currentView = 'home';
+            }
+        });
 
         // Initial render
         renderView();

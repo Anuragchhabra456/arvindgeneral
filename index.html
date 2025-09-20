@@ -16,8 +16,8 @@
             background-color: #f7fafc;
         }
         .main-container {
-            min-height: calc(100vh - 80px); /* Account for header height */
-            margin-top: 80px;
+            min-height: calc(100vh - 150px);
+            margin-top: 150px; /* Adjusted margin to account for new header height */
         }
         .product-image {
             width: 100%;
@@ -79,14 +79,26 @@
 
     <!-- Header -->
     <header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
-        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-            <a href="#" id="home-link" class="text-2xl font-bold text-blue-600 hover:text-blue-800 transition-colors">Arvind General Store</a>
-            <div class="flex items-center space-x-6">
-                <a href="#" id="home-nav-link" class="text-gray-600 hover:text-blue-600 transition-colors">Home</a>
-                <a href="#" id="products-nav-link" class="text-gray-600 hover:text-blue-600 transition-colors">Products</a>
-                
-                <!-- Search and Cart Icons -->
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <!-- Top Row: Store Name & Social Icons -->
+            <div class="flex items-center justify-between mb-4">
+                <a href="#" id="home-link" class="text-2xl font-bold text-blue-600 hover:text-blue-800 transition-colors">Arvind General Store</a>
                 <div class="flex items-center space-x-4">
+                    <a href="https://wa.me/7505756355" target="_blank" class="text-gray-600 hover:text-green-500 transition-colors">
+                        <img src="http://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="h-6 w-6" />
+                    </a>
+                    <a href="https://www.instagram.com/arvind_generalstore" target="_blank" class="text-gray-600 hover:text-pink-500 transition-colors">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="h-6 w-6" />
+                    </a>
+                </div>
+            </div>
+            <!-- Bottom Row: Navigation & Search/Cart -->
+            <div class="flex items-center justify-between border-t border-gray-200 pt-4">
+                <nav class="flex items-center space-x-6">
+                    <a href="#" id="home-nav-link" class="text-gray-600 hover:text-blue-600 transition-colors">Home</a>
+                    <a href="#" id="products-nav-link" class="text-gray-600 hover:text-blue-600 transition-colors">Products</a>
+                </nav>
+                <div class="flex items-center space-x-6">
                     <div id="search-container" class="relative flex items-center">
                         <div id="search-input-container" class="search-input-container">
                             <input type="text" id="search-input" class="w-full px-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors" placeholder="Search products...">
@@ -98,7 +110,6 @@
                             </svg>
                         </button>
                     </div>
-
                     <button id="cart-button" class="relative p-2 rounded-full hover:bg-gray-100 transition-colors">
                         <svg class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.194 1.257.432 1.257h13.234c.626 0 1.06-.627.432-1.257L17 13m-2 5a2 2 0 11-4 0 2 2 0 014 0zM15 19a2 2 0 100-4 2 2 0 000 4z" />
@@ -107,7 +118,7 @@
                     </button>
                 </div>
             </div>
-        </nav>
+        </div>
     </header>
 
     <!-- Main Content Area -->
@@ -493,7 +504,7 @@
                                             </button>
                                         </div>
                                         <button class="remove-btn p-1 rounded-full text-red-500 hover:bg-red-100 transition-colors" data-product-id="${item.id}">
-                                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.036 20H7.964a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.036 20H7.964a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 2 0 00-1-1h-4a1 2 0 00-1 1v3M4 7h16" /></svg>
                                         </button>
                                     </div>
                                 </li>

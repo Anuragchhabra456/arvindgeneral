@@ -17,7 +17,7 @@
         }
         .main-container {
             min-height: calc(100vh - 150px);
-            margin-top: 150px; /* Adjusted margin to account for new header height */
+            margin-top: 150px;
         }
         .product-image {
             width: 100%;
@@ -28,15 +28,15 @@
         .product-detail-image {
             width: 100%;
             height: 400px;
-            object-fit: cover;
+            object-fit: contain;
             object-position: center;
         }
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
         .no-scrollbar {
-            -ms-overflow-style: none; /* IE and Edge */
-            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
         .search-input-container {
             transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
@@ -147,30 +147,46 @@
         
         let cart = [];
         
-        // Product data with correct pricing
-        const newProductData = [
-            {"Product name": "Fair and Lovely face cream 25gm", "Product category": "face cream", "product description": "Fair and Lovely face cream 25 gm", "MRP": "70", "selling price": "65"},
-            {"Product name": "Ponds bright beauty face cream 50ml", "Product category": "face cream", "product description": "Pond's bright beauty face cream 50ml", "MRP": "174", "selling price": "149"},
-            {"Product name": "Garnier bright complete face cream 23gm", "Product category": "face cream", "product description": "UV Serum Day Cream with Vitamin C for Skin Brightening and Sun Protection 23gm", "MRP": "109", "selling price": "99"},
-            {"Product name": "Ponds bright beauty facewash 50gm", "Product category": "face wash", "product description": "POND'S Bright Beauty Spot-less Fairness & Germ Removal Facewash 50 g", "MRP": "98", "selling price": "90"},
-            {"Product name": "Ponds bright miracle facewash 50gm", "Product category": "face wash", "product description": "Pond's Pure Detox Anti-Pollution Purity Face Wash With Activated Charcoal Deep Cleans Impurities Dirt And Pollution For 2X Brighter Glowing Skin,50 g", "MRP": "120", "selling price": "110"},
-            {"Product name": "Himalaya neem facewash 50ml", "Product category": "face wash", "product description": "Himalaya Purifying Neem Face Wash|Clears and Prevents Pimples & Acne|Made with 5 parts of Neem|New & Best Ever clinically Proven formula|Gently Cleanses|For men and women|50 ml", "MRP": "90", "selling price": "80"},
-            {"Product name": "Himalaya neem facewash", "Product category": "face wash", "product description": "Himalaya Purifying Neem Face Wash|Clears and Prevents Pimples & Acne|Made with 5 parts of Neem|New & Best Ever clinically Proven formula|Gently Cleanses|For men and women|150 ml", "MRP": "279", "selling price": "199"},
-            {"Product name": "Garnier vitamin c face serum 30ml", "Product category": "face serum", "product description": "Garnier Vitamin C + Face Serum for Skin Brightening & Anti-Dark Spots|100X Stronger than Vit C |2% Niacinamide 0.5% Salicylic Acid/BHA |Suitable for Oily, Dry, Sensitive Skin |For Men & Women 30ml", "MRP": "619", "selling price": "399"},
-            {"Product name": "Natures bleach 23gm", "Product category": "bleach cream", "product description": "NATURES ESSENCE Gold Creme Bleach, 23 gm", "MRP": "55", "selling price": "50"},
-            {"Product name": "Dabur amla hair oil 63ml", "Product category": "hair oil", "product description": "Dabur amla hair oil 63ml", "MRP": "20", "selling price": "20"},
-            {"Product name": "Nihar shanti amla hair oil 65ml", "Product category": "hair oil", "product description": "Nihar shanti amla hair oil 65 ml", "MRP": "20", "selling price": "20"},
-            {"Product name": "Keo karpin hair oil 100ml", "Product category": "hair oil", "product description": "Keo Karpin Hair Oil |Non-Sticky Hair Oil, Enriched With Natural Vitamin E And Olive Oil | 100ml", "MRP": "55", "selling price": "50"},
-            {"Product name": "Bajaj almond hair oil 50ml", "Product category": "hair oil", "product description": "Bajaj Almond Drops Hair Oil, 50ml | 6X Vitamin E Nourishment | Light and Non-Sticky Hair Oil For Hair Fall Control", "MRP": "37", "selling price": "35"},
-            {"Product name": "Nivea moisturiser 120ml", "Product category": "Body lotion", "product description": "IVEA Nourishing Body Milk 120ml", "MRP": "170", "selling price": "120"},
-            {"Product name": "Nivea sunscreen 75ml", "Product category": "sunscreen", "product description": "Nivea Sun Protect & Moisture SPF 50 Pa+++ Sunscreen For Men & Women 75ml", "MRP": "369", "selling price": "349"},
-            {"Product name": "Lakme sunscreen 50ml", "Product category": "sunscreen", "product description": "Lakme Sun Expert Spf 50 Pa+++ Ultra Matte Sunscreen 50ml", "MRP": "360", "selling price": "330"},
-            {"Product name": "Set wet hair wax 150gm", "Product category": "hair wax", "product description": "Set Wet Studio X Styling Clay Hair Wax For Men, 150g", "MRP": "315", "selling price": "299"}
-        ];
+        // Function to handle image links from Google Drive or other sources
+        function getImageUrl(url) {
+            // Check if it's a Google Drive link
+            const driveRegex = /\/d\/([a-zA-Z0-9_-]+)/;
+            const driveMatch = url.match(driveRegex);
+            if (driveMatch && driveMatch[1]) {
+                const imageId = driveMatch[1];
+                return `https://drive.google.com/uc?export=view&id=${imageId}`;
+            }
 
+            // Return the URL as is if it's not a Google Drive link
+            return url;
+        }
+
+        // Product data from the attached CSV file
+        const newProductData = [
+            {"Product name": "Fair and Lovely face cream 25gm", "Product category": "face cream", "product description": "Fair and Lovely face cream 25 gm", "MRP": "70", "selling price": "65", "image link": "https://m.media-amazon.com/images/I/51Ixxq9NkkL._SX522_.jpg"},
+            {"Product name": "Pond's bright beauty face cream 50ml", "Product category": "face cream", "product description": "Pond's bright beauty face cream 50ml", "MRP": "174", "selling price": "149", "image link": "https://m.media-amazon.com/images/I/51XtM1CR0gL._SX522_.jpg"},
+            {"Product name": "Garnier bright complete face cream 23gm", "Product category": "face cream", "product description": "UV Serum Day Cream with Vitamin C for Skin Brightening and Sun Protection 23gm", "MRP": "109", "selling price": "99", "image link": "https://m.media-amazon.com/images/I/71nUe95xR1L._SX522_.jpg"},
+            {"Product name": "Ponds bright beauty facewash 50gm", "Product category": "face wash", "product description": "POND'S Bright Beauty Spot-less Fairness & Germ Removal Facewash 50 g", "MRP": "98", "selling price": "90", "image link": "https://m.media-amazon.com/images/I/51ox8fSF9zL._SX522_.jpg"},
+            {"Product name": "Pond's bright miracle facewash 50gm", "Product category": "face wash", "product description": "Pond's Pure Detox Anti-Pollution Purity Face Wash With Activated Charcoal Deep Cleans Impurities Dirt And Pollution For 2X Brighter Glowing Skin,50 g", "MRP": "120", "selling price": "110", "image link": "https://m.media-amazon.com/images/I/51kmN4nM1BL._SX522_.jpg"},
+            {"Product name": "Himalaya neem facewash 50ml", "Product category": "face wash", "product description": "Himalaya Purifying Neem Face Wash|Clears and Prevents Pimples & Acne|Made with 5 parts of Neem|New & Best Ever clinically Proven formula|Gently Cleanses|For men and women|50 ml", "MRP": "90", "selling price": "80", "image link": "https://m.media-amazon.com/images/I/51lR6fI0+fL._AC_UL480_FMwebp_QL65_.jpg"},
+            {"Product name": "Himalaya neem facewash", "Product category": "face wash", "product description": "Himalaya Purifying Neem Face Wash|Clears and Prevents Pimples & Acne|Made with 5 parts of Neem|New & Best Ever clinically Proven formula|Gently Cleanses|For men and women|150 ml", "MRP": "279", "selling price": "199", "image link": "https://m.media-amazon.com/images/I/515f4o-QG4L._AC_UL480_FMwebp_QL65_.jpg"},
+            {"Product name": "Garnier vitamin c face serum 30ml", "Product category": "face serum", "product description": "Garnier Vitamin C + Face Serum for Skin Brightening & Anti-Dark Spots|100X Stronger than Vit C |2% Niacinamide 0.5% Salicylic Acid/BHA |Suitable for Oily, Dry, Sensitive Skin |For Men & Women 30ml", "MRP": "619", "selling price": "399", "image link": "https://m.media-amazon.com/images/I/71-LwYhJgQL._AC_UL480_FMwebp_QL65_.jpg"},
+            {"Product name": "Nature's bleach 23gm", "Product category": "bleach cream", "product description": "NATURES ESSENCE Gold Creme Bleach, 23 gm", "MRP": "55", "selling price": "50", "image link": "https://m.media-amazon.com/images/I/41D8z+YgP+L._AC_UL480_FMwebp_QL65_.jpg"},
+            {"Product name": "Dabur amla hair oil 63ml", "Product category": "hair oil", "product description": "Dabur amla hair oil 63ml", "MRP": "20", "selling price": "20", "image link": "https://m.media-amazon.com/images/I/51dJ3rRVzhL._AC_UL480_FMwebp_QL65_.jpg"},
+            {"Product name": "Nihar shanti amla hair oil 65ml", "Product category": "hair oil", "product description": "Nihar shanti amla hair oil 65 ml", "MRP": "20", "selling price": "20", "image link": "https://m.media-amazon.com/images/I/51dJ3rRVzhL._AC_UL480_FMwebp_QL65_.jpg"},
+            {"Product name": "Keo karpin hair oil 100ml", "Product category": "hair oil", "product description": "Keo Karpin Hair Oil |Non-Sticky Hair Oil, Enriched With Natural Vitamin E And Olive Oil | 100ml", "MRP": "55", "selling price": "50", "image link": "https://m.media-amazon.com/images/I/51dJ3rRVzhL._AC_UL480_FMwebp_QL65_.jpg"},
+            {"Product name": "Bajaj almond hair oil 50ml", "Product category": "hair oil", "product description": "Bajaj Almond Drops Hair Oil, 50ml | 6X Vitamin E Nourishment | Light and Non-Sticky Hair Oil For Hair Fall Control", "MRP": "37", "selling price": "35", "image link": "https://m.media-amazon.com/images/I/51dJ3rRVzhL._AC_UL480_FMwebp_QL65_.jpg"},
+            {"Product name": "Nivea moisturiser 120ml", "Product category": "Body lotion", "product description": "IVEA Nourishing Body Milk 120ml Body Lotion with Deep Moisture Serum | 48 H Moisturization | With 2X Almond Oil | Smooth and Healthy Looking Skin |For Very Dry Skin", "MRP": "110", "selling price": "99", "image link": "https://m.media-amazon.com/images/I/41OGraWXVsL._AC_UL480_FMwebp_QL65_.jpg"},
+            {"Product name": "Pond's moisturiser 90ml", "Product category": "Body lotion", "product description": "POND'S Niacinamide Nourishing Body Lotion for Soft, Glowing Skin 90 ml", "MRP": "120", "selling price": "115", "image link": "https://m.media-amazon.com/images/I/51sNJ+j711L._AC_UL480_FMwebp_QL65_.jpg"},
+            {"Product name": "Vaseline moisturiser 90ml", "Product category": "Body lotion", "product description": "Vaseline Intensive Care Deep Moisture Body Lotion 90 ml", "MRP": "90", "selling price": "80", "image link": "https://m.media-amazon.com/images/I/51sbtCfym2L._AC_UL480_FMwebp_QL65_.jpg"},
+            {"Product name": "Veda care aelovera hair removing wax", "Product category": "hair wax", "product description": "Veda care aelovera hair removing wax", "MRP": "160", "selling price": "99", "image link": "https://rukminim2.flixcart.com/image/704/844/kah413k0/hair-removal/h/q/p/600-aeolovera-hair-removal-hot-wax-vedacare-original-imafs79vzy3626s3.jpeg"},
+            {"Product name": "Set wet hair wax 150gm", "Product category": "hair wax", "product description": "Set Wet Studio X Styling Clay Hair Wax For Men, 150g", "MRP": "315", "selling price": "299", "image link": "https://m.media-amazon.com/images/I/61NlJ0vS2KL._SX522_.jpg"},
+            {"Product name": "Lakme sunscreen 50ml", "Product category": "sunscreen", "product description": "Lakme Sun Expert Spf 50 Pa+++ Ultra Matte Sunscreen 50ml", "MRP": "360", "selling price": "330", "image link": "https://m.media-amazon.com/images/I/51j1S+n+fQL._AC_UL480_FMwebp_QL65_.jpg"},
+            {"Product name": "Nivea sunscreen 75ml", "Product category": "sunscreen", "product description": "Nivea Sun Protect & Moisture SPF 50 Pa+++ Sunscreen For Men & Women 75ml", "MRP": "369", "selling price": "349", "image link": "https://m.media-amazon.com/images/I/51o+0oT-JmL._AC_UL480_FMwebp_QL65_.jpg"}
+        ];
+        
         // Map the new product data to the existing format
         const products = newProductData.map((p, index) => {
-            let image = `https://placehold.co/600x400/${Math.floor(Math.random()*16777215).toString(16)}/fff?text=${encodeURIComponent(p["Product name"])}`;
             return {
                 id: index + 1,
                 name: p["Product name"],
@@ -178,7 +194,7 @@
                 price: parseFloat(p["selling price"]),
                 category: p["Product category"],
                 description: p["product description"],
-                image: image
+                image: getImageUrl(p["image link"])
             };
         });
         
@@ -263,7 +279,7 @@
 
             const categoryCardsHtml = categories.map(category => `
                 <div class="category-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 overflow-hidden cursor-pointer" data-category="${category}">
-                    <img src="https://placehold.co/600x400/c7c7c7/fff?text=${encodeURIComponent(category.replace(' ', '+'))}" alt="${category} Category" class="product-image rounded-t-xl">
+                    <img src="${getImageUrl(newProductData.find(p => p["Product category"] === category)?.["image link"] || '')}" alt="${category} Category" class="product-image rounded-t-xl">
                     <div class="p-6 text-center">
                         <h3 class="font-semibold text-lg text-gray-900 truncate">${category}</h3>
                     </div>
@@ -322,7 +338,6 @@
                 });
             });
 
-            // Initial render based on state
             renderProductCards(state.selectedCategory);
             const activeFilterBtn = document.querySelector(`.filter-btn[data-category="${state.selectedCategory}"]`);
             if (activeFilterBtn) {
@@ -355,7 +370,6 @@
                 <button data-product-id="${product.id}" class="add-to-cart-btn w-full px-6 py-3 bg-blue-600 text-white rounded-xl shadow-lg hover:bg-blue-700 transition-colors">Add to Cart</button>
             `;
             
-            // Logic to conditionally display MRP and discount
             let priceHtml = '';
             if (product.mrp > product.price) {
                 const discountPercentage = Math.round(((product.mrp - product.price) / product.mrp) * 100);
@@ -403,7 +417,6 @@
                 return;
             }
             
-            // Logic to conditionally display MRP and discount
             let priceHtml = '';
             if (product.mrp > product.price) {
                 const discountPercentage = Math.round(((product.mrp - product.price) / product.mrp) * 100);
@@ -486,8 +499,8 @@
                         <ul class="space-y-6">
                             ${cart.map(item => `
                                 <li class="flex items-center justify-between border-b pb-4 last:border-b-0 last:pb-0">
-                                    <div class="flex items-center space-x-4">
-                                        <img src="${item.image}" alt="${item.name}" class="h-24 w-24 object-cover rounded-xl shadow-md">
+                                    <div class="flex flex-col sm:flex-row items-center sm:space-x-4">
+                                        <img src="${item.image}" alt="${item.name}" class="h-24 w-24 object-cover rounded-xl shadow-md mb-2 sm:mb-0">
                                         <div>
                                             <h4 class="font-semibold text-lg text-gray-900">${item.name}</h4>
                                             <p class="text-blue-600 font-bold">${formatPrice(item.price)}</p>
@@ -622,7 +635,7 @@
         productsNavLink.addEventListener('click', (e) => {
             e.preventDefault();
             state.currentView = 'products';
-            state.selectedCategory = 'all'; // Reset category when navigating via the main link
+            state.selectedCategory = 'all';
             renderView();
         });
 
@@ -649,7 +662,7 @@
         searchInput.addEventListener('input', () => {
             const query = searchInput.value.trim();
             if (query) {
-                const suggestions = filterProductsBySearch(query).slice(0, 5); // Limit suggestions to 5
+                const suggestions = filterProductsBySearch(query).slice(0, 5);
                 renderSuggestions(suggestions);
             } else {
                 searchSuggestions.classList.add('hidden');
@@ -769,7 +782,6 @@
                 const whatsappUrl = `https://wa.me/7505756355?text=${message}`;
                 window.open(whatsappUrl, '_blank');
 
-                // Clear the cart after placing the order
                 cart = [];
                 updateCartCount();
                 showMessage('Order Placed!', 'Your order details have been sent to Arvind General Store. They will contact you shortly to confirm your order.');
